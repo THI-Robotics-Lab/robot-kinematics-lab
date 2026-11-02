@@ -1,6 +1,8 @@
 # Development and contribution
 
 The application runs in the browser. No Python, ROS or Docker is required.
+See the [technical guide](docs/TECHNICAL.md) and [validation](docs/VALIDATION.md)
+for model and test details.
 Clone the public repository and use Node.js 22.16.0 and npm:
 
 ```bash
