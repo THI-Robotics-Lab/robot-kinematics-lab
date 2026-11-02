@@ -1,0 +1,40 @@
+THI Robot Kinematics Lab — redistribution notices
+
+New demo source: MIT; see licenses/Lab-MIT.txt.
+
+THI logo (thi-logo.svg) — Technische Hochschule Ingolstadt.
+Official institutional logo, obtained from https://www.thi.de/; used for
+identification. The logo is not covered by the lab's MIT source license.
+Robotics lab thumbnail (robotics-lab.png): supplied by the user and not covered
+by the lab's MIT source license.
+
+Adapted source and model data:
+
+Kinematica — https://github.com/piranut-op/kinematica
+Revision 257cdf0c7ed61cc61dcfc5a5873098f84a29012c
+Copyright (c) 2026 piranut-op. MIT; see licenses/Kinematica.txt.
+mathUtils.ts adapted as math.ts, with a corrected quaternion angular residual.
+
+JINX — https://github.com/chandansaipavanpadala/jinx
+Revision d11ad062b6a9b436f3b275b5bd503b0e8018fd2f
+Copyright (c) 2026 Chandan Sai Pavan Padala. MIT; see licenses/JINX.txt.
+WELDING_DH_CONFIG adapted as the generic Spatial 6R model.
+
+Franka Panda model — https://github.com/frankarobotics/franka_ros
+Revision ddd2fffd9de44b02ad15b4bbb2bfa2cec4d60d98
+Copyright 2023 Franka Robotics GmbH. Apache-2.0;
+see licenses/Franka-Apache-2.0.txt and licenses/Franka-NOTICE.txt.
+Numeric origins from franka_description/robots/common/franka_arm.xacro and
+bounds from robots/panda/joint_limits.yaml re-expressed in TypeScript data.
+No meshes, ROS runtime or gripper assets are redistributed.
+
+Bundled runtime libraries (each retains its own MIT license):
+
+React — https://github.com/facebook/react — licenses/React.txt
+React DOM — https://github.com/facebook/react — licenses/React-DOM.txt
+Scheduler — https://github.com/facebook/react — licenses/Scheduler.txt
+Three.js (including OrbitControls and TransformControls) —
+https://github.com/mrdoob/three.js — licenses/Three.txt
+
+No remotely loaded fonts, textures, images, URDF files or runtime APIs.
+Build and test tools are development dependencies, not runtime requirements.
