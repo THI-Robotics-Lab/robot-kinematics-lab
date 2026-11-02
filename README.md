@@ -6,7 +6,10 @@ ROS is required.
 
 **[Open the live application](https://thi-robotics-lab.github.io/robot-kinematics-lab/)**
 
-![Robot workspace with planar inverse kinematics](screenshots/overview.png)
+The lab opens with the Franka Panda 7R at its home pose in Presentation Mode.
+Browser fullscreen is optional.
+
+![Franka Panda workspace in Presentation Mode](screenshots/overview.png)
 
 ## Explore
 
