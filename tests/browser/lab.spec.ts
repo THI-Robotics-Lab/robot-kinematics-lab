@@ -1,5 +1,37 @@
 import { expect, test } from "@playwright/test";
 import { PerspectiveCamera, Vector3 } from "three";
+import { forward } from "../../src/kinematics/fk";
+import { getPosition, matrixToRPY } from "../../src/kinematics/math";
+import { panda } from "../../src/kinematics/models";
+
+test("initial state selects Panda home and its target in presentation mode without fullscreen", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: /Franka Panda 7R/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: "Presentation mode", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".app")).toHaveClass(/presentation/);
+  expect(await page.evaluate(() => document.fullscreenElement)).toBeNull();
+  await expect(page.getByRole("button", { name: "Enter fullscreen", exact: true })).toBeVisible();
+  await expect(page.getByRole("slider", { name: /^Joint \d slider$/ })).toHaveCount(7);
+  for (const [i, angle] of panda.home.entries()) {
+    const value = await page.getByRole("spinbutton", { name: `Joint ${i + 1} (deg)`, exact: true }).inputValue();
+    expect(Number(value)).toBeCloseTo(angle * 180 / Math.PI, 4);
+  }
+  await page.getByRole("button", { name: "Inverse Kinematics", exact: true }).click();
+  await page.getByRole("button", { name: "Full pose", exact: true }).click();
+  const pose = forward(panda, panda.home).pose;
+  for (const [i, axis] of ["X", "Y", "Z"].entries()) {
+    const value = await page.getByRole("spinbutton", { name: `Target ${axis} (m)`, exact: true }).inputValue();
+    expect(Number(value)).toBeCloseTo(getPosition(pose)[i], 4);
+  }
+  for (const [i, axis] of ["Roll", "Pitch", "Yaw"].entries()) {
+    const value = await page.getByRole("spinbutton", { name: `Target ${axis} (deg)`, exact: true }).inputValue();
+    expect(Number(value)).toBeCloseTo(matrixToRPY(pose)[i] * 180 / Math.PI, 4);
+  }
+  await page.getByRole("button", { name: "Solve IK" }).click();
+  await expect(page.getByRole("status")).toContainText("Converged");
+});
 
 test("all three models render and solve, with no external runtime requests", async ({
   page,
@@ -49,6 +81,7 @@ test("2R controls expose branch solutions, live FK, limits, singularities and un
   page,
 }) => {
   await page.goto("/");
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   await page
     .getByRole("button", { name: "Inverse Kinematics", exact: true })
     .click();
@@ -124,6 +157,7 @@ test("numeric controls accept signed decimal keyboard input", async ({
 
 test("target gizmo can be dragged, and release runs IK", async ({ page }) => {
   await page.goto("/");
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   await page
     .getByRole("button", { name: "Inverse Kinematics", exact: true })
     .click();

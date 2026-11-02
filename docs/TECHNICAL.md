@@ -2,7 +2,8 @@
 
 ## Teaching modes and projection
 
-Select a model, then one of three modes:
+The lab opens with the Franka Panda 7R at its home joint configuration, with
+the target set to its home pose. Select a model, then one of three modes:
 
 - **Forward Kinematics** shows joint sliders, numeric joint angles and the actual
   end-effector pose. Move the joints and toggle **Joint frames** or **Joint labels**.
@@ -17,7 +18,7 @@ Select a model, then one of three modes:
 additional pose/joint readouts. Changing mode or robot leaves a guided demo and
 pauses playback. Changing an ordinary joint/target invalidates prior IK status.
 
-**Presentation mode** enlarges controls, numbers and the viewport and removes
+**Presentation mode** is enabled initially. It enlarges controls, numbers and the viewport and removes
 secondary prose. Model, mode and demo switches stay accessible. Joint controls
 remain in the viewport. In the Panda demo, advanced analysis details
 are condensed until **Advanced information** is enabled. **Enter fullscreen**

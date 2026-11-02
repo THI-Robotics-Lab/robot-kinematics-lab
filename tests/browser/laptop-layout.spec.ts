@@ -3,6 +3,8 @@ import { expect, test } from "@playwright/test";
 test("laptop workspace keeps joint sliders and robot visible in every mode", async ({ page }, info) => {
   await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto("/");
+  await page.getByRole("button", { name: "Presentation mode", exact: true }).click();
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   const logo = page.getByRole("img", { name: "Technische Hochschule Ingolstadt" });
   await expect(logo).toBeVisible();
   expect(await logo.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
@@ -48,6 +50,8 @@ test("laptop workspace keeps joint sliders and robot visible in every mode", asy
 test("compact workspace also fits a 1280 by 720 laptop", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto("/");
+  await page.getByRole("button", { name: "Presentation mode", exact: true }).click();
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   await page.getByRole("button", { name: "Inverse Kinematics", exact: true }).click();
   const canvas = (await page.locator("canvas").boundingBox())!;
   const controls = (await page.getByRole("region", { name: "Workspace joint controls" }).boundingBox())!;

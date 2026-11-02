@@ -18,6 +18,7 @@ test("Top View frames XY with X right and Y up, restores defaults and survives r
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   await page
     .getByRole("slider", { name: "Joint 1 slider", exact: true })
     .fill("0");
@@ -162,9 +163,7 @@ test("joint labels use FK pivots and highlight focused slider/numeric controls w
         ).toBe(false),
       ),
   );
-  await page
-    .getByRole("button", { name: "Presentation mode", exact: true })
-    .click();
+  await expect(page.getByRole("button", { name: "Presentation mode", exact: true })).toHaveAttribute("aria-pressed", "true");
   await page
     .getByRole("spinbutton", {
       name: "Joint 3 (deg)",
@@ -196,6 +195,7 @@ test("Demo D consistently describes Cartesian IK/FK reconstruction", async ({
   page,
 }) => {
   await page.goto("/");
+  await page.getByRole("button", { name: "Presentation mode", exact: true }).click();
   await page.getByRole("button", { name: /^Demo D ·/ }).click();
   await expect(page.getByText(/^Cartesian reconstruction error/)).toBeVisible();
   await expect(

@@ -24,6 +24,7 @@ test("modes expose relevant controls and retain advanced access", async ({
   page,
 }, info) => {
   await page.goto("/");
+  await page.getByRole("button", { name: /Planar 2R/ }).click();
   await expect(
     page.getByRole("slider", { name: "Joint 1 slider" }),
   ).toBeVisible();
@@ -178,6 +179,9 @@ test("presentation, keyboard switching, fullscreen and mobile controls work", as
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto("/");
   await demo(page, "D").click();
+  await page
+    .getByRole("button", { name: "Presentation mode", exact: true })
+    .click();
   const before = (await page.locator("canvas").boundingBox())!.height;
   await page
     .getByRole("button", { name: "Presentation mode", exact: true })

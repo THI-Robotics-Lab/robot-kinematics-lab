@@ -94,10 +94,10 @@ function NumberField({
 }
 
 export function App() {
-  const [robot, setRobot] = useState<Robot>(planar);
-  const [q, setQ] = useState(planar.home);
+  const [robot, setRobot] = useState<Robot>(panda);
+  const [q, setQ] = useState(() => panda.home.slice());
   const [target, setTarget] = useState<Mat4>(
-    () => forward(planar, planar.home).pose,
+    () => forward(panda, panda.home).pose,
   );
   const [task, setTask] = useState<Task>("position");
   const [result, setResult] = useState<IKResult | null>(null);
@@ -114,7 +114,7 @@ export function App() {
   const [mode, setMode] = useState<Mode>("fk");
   const [demo, setDemo] = useState<Demo>(null);
   const [advanced, setAdvanced] = useState(false);
-  const [presentation, setPresentation] = useState(false);
+  const [presentation, setPresentation] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
   const [fullscreenMessage, setFullscreenMessage] = useState("");
   const [s, setS] = useState(0);
